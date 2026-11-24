@@ -27,6 +27,10 @@ def main() -> None:
     assert LINE.strip() == LINE, "no leading/trailing whitespace"
     assert LINE.count(".") == 1 and LINE.endswith("."), "exactly one sentence"
     assert "\n" not in LINE, "no newline inside the line"
+    # A one-liner must read cleanly aloud: no double spaces, and enough
+    # words to carry a setup plus a punchline (a 1-2 word line cannot).
+    assert "  " not in LINE, "no double spaces"
+    assert len(LINE.split()) >= 5, "line must have at least 5 words"
 
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "entry.txt"), "w", encoding="utf-8") as f:
